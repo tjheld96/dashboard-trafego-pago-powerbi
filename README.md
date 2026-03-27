@@ -1,5 +1,8 @@
 Dashboard de Performance — Tráfego Pago | Power BI
 
+![Visão Geral](visao-geral.png)
+![Comparativo A/B](comparativo-ab.png)
+
 Sobre o projeto
 Dashboard desenvolvido para monitoramento de campanhas de mídia paga (Meta Ads) de um cliente do segmento de arquitetura e design de interiores. O objetivo foi centralizar as principais métricas de performance em um único painel, facilitando a tomada de decisão sobre budget e estratégia de campanhas.
 
