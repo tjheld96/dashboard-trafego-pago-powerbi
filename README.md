@@ -20,3 +20,9 @@ Power BI, Excel, Meta Ads.
 
 Resultado
 Permitiu identificar que a campanha voltada para públicos recém casados e recém mudados gerava leads com custo menor e maior taxa de conversão para reunião, orientando a realocação de budget.
+
+---
+
+## Outro projeto neste repositório: Tibia Idle Online
+
+Além do dashboard acima, este repositório também contém [`tibia-idle-game/`](tibia-idle-game/), um jogo idle multiplayer inspirado no Tibia (React + Node.js + Socket.IO), com níveis, hunts automáticas, vocações, skills e ranking online. Veja o [README do jogo](tibia-idle-game/README.md) para detalhes e instruções de execução.

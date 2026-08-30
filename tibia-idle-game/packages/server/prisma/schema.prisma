@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  username     String     @unique
+  passwordHash String
+  createdAt    DateTime   @default(now())
+  character    Character?
+}
+
+model Character {
+  id          String   @id @default(cuid())
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+  name        String   @unique
+  vocation    String
+  level       Int      @default(1)
+  experience  Int      @default(0)
+  gold        Int      @default(0)
+  hp          Int
+  mp          Int
+
+  attrStr     Int      @default(0)
+  attrDex     Int      @default(0)
+  attrInt     Int      @default(0)
+  attrVit     Int      @default(0)
+  unspentAttributePoints Int @default(0)
+
+  skillMelee          Int @default(10)
+  skillDistance        Int @default(10)
+  skillMagic          Int @default(10)
+  skillShielding      Int @default(10)
+  skillProgressMelee     Int @default(0)
+  skillProgressDistance   Int @default(0)
+  skillProgressMagic     Int @default(0)
+  skillProgressShielding Int @default(0)
+
+  currentGroundId String?
+  huntStartedAt   DateTime?
+  lastTickAt      DateTime?
+  deaths          Int      @default(0)
+
+  trophiesJson    String   @default("{}")
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
