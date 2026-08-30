@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Idle Hunter — RPG Estilo Tibia</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>⚔️ Idle Hunter</h1>
+    <p class="subtitle">um RPG idle inspirado em Tibia — seu personagem caça sozinho, você só acompanha o progresso</p>
+  </header>
+
+  <main class="game-grid">
+
+    <!-- PAINEL DO PERSONAGEM -->
+    <section class="panel player-panel">
+      <h2>Personagem</h2>
+      <div class="player-card">
+        <div class="player-avatar">🧙</div>
+        <div class="player-info">
+          <div class="player-name-row">
+            <input id="playerName" class="player-name-input" maxlength="16" value="Aventureiro">
+            <span class="level-badge">Nv. <span id="playerLevel">1</span></span>
+          </div>
+
+          <div class="bar-row">
+            <label>HP</label>
+            <div class="bar hp-bar"><div id="hpFill" class="bar-fill"></div></div>
+            <span id="hpText" class="bar-text">0/0</span>
+          </div>
+          <div class="bar-row">
+            <label>Mana</label>
+            <div class="bar mp-bar"><div id="mpFill" class="bar-fill"></div></div>
+            <span id="mpText" class="bar-text">0/0</span>
+          </div>
+          <div class="bar-row">
+            <label>XP</label>
+            <div class="bar xp-bar"><div id="xpFill" class="bar-fill"></div></div>
+            <span id="xpText" class="bar-text">0/0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-box">⚔️ Ataque<br><span id="statAttack">0</span></div>
+        <div class="stat-box">🛡️ Defesa<br><span id="statDefense">0</span></div>
+        <div class="stat-box">💰 Ouro<br><span id="statGold">0</span></div>
+        <div class="stat-box">💀 Mortes<br><span id="statDeaths">0</span></div>
+      </div>
+
+      <button id="resetBtn" class="danger-btn">Reiniciar progresso</button>
+    </section>
+
+    <!-- CENA DE BATALHA -->
+    <section class="panel battle-panel">
+      <h2>Caçada — <span id="areaName">Esgotos Sombrios</span></h2>
+      <div class="battle-scene">
+        <div class="combatant player-side">
+          <div class="sprite" id="playerSprite">🧙</div>
+          <div class="mini-bar"><div id="playerMiniHp" class="mini-fill"></div></div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="combatant monster-side" id="monsterBlock">
+          <div class="sprite" id="monsterSprite">💤</div>
+          <div class="mini-bar"><div id="monsterMiniHp" class="mini-fill enemy"></div></div>
+          <div id="monsterName" class="monster-name">Procurando alvo...</div>
+        </div>
+      </div>
+      <div id="recoveryNotice" class="recovery-notice hidden">⛪ Recuperando-se no Templo...</div>
+
+      <h3>Registro de combate</h3>
+      <div id="combatLog" class="combat-log"></div>
+    </section>
+
+    <!-- ÁREAS E LOJA -->
+    <section class="panel side-panel">
+      <h2>Áreas de Caça</h2>
+      <div id="areaList" class="area-list"></div>
+
+      <h2>Ferreiro</h2>
+      <div id="shopList" class="shop-list"></div>
+    </section>
+
+  </main>
+
+  <footer class="bottombar">
+    Progresso salvo automaticamente no seu navegador. Feche a aba quando quiser — ao voltar, você recebe recompensas pelo tempo em que ficou fora.
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
