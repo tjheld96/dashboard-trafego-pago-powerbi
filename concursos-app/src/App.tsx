@@ -2,13 +2,16 @@ import { useMemo, useState } from "react";
 import { questions } from "./data/questions";
 import { Filters, type FiltrosState } from "./components/Filters";
 import { QuestionCard } from "./components/QuestionCard";
+import { ThemeToggle } from "./components/ThemeToggle";
 import { useQuestionProgress } from "./hooks/useQuestionProgress";
+import { useTheme } from "./hooks/useTheme";
 
 const FILTROS_VAZIOS: FiltrosState = { ano: "", banca: "", tema: "", assunto: "", busca: "" };
 
 export default function App() {
   const [filtros, setFiltros] = useState<FiltrosState>(FILTROS_VAZIOS);
   const { obterProgresso, responder } = useQuestionProgress();
+  const { tema, alternar } = useTheme();
 
   const opcoes = useMemo(() => {
     const anos = new Set<number>();
@@ -54,10 +57,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen">
-      <div className="mx-auto max-w-4xl px-4 pb-24 pt-10 sm:px-6">
-        <Header totalQuestoes={questions.length} />
+      <div className="mx-auto max-w-3xl px-4 pb-24 pt-8 sm:px-6">
+        <Header totalQuestoes={questions.length} tema={tema} onToggleTema={alternar} />
 
-        <div className="mt-8">
+        <div className="mt-6">
           <Filters
             filtros={filtros}
             onChange={setFiltros}
@@ -66,7 +69,7 @@ export default function App() {
           />
         </div>
 
-        <div className="mt-6 space-y-6">
+        <div className="mt-5 space-y-4">
           {questoesFiltradas.length === 0 ? (
             <EstadoVazio />
           ) : (
@@ -85,41 +88,33 @@ export default function App() {
   );
 }
 
-function Header({ totalQuestoes }: { totalQuestoes: number }) {
+function Header({
+  totalQuestoes,
+  tema,
+  onToggleTema,
+}: {
+  totalQuestoes: number;
+  tema: "light" | "dark";
+  onToggleTema: () => void;
+}) {
   return (
-    <header className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+    <header className="flex items-center justify-between border-b border-border-subtle pb-5">
       <div>
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-brand-500/15 px-3 py-1 text-xs font-semibold text-brand-200">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent-400" />
-          Banco de questões em construção
-        </div>
-        <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
-          Aprova<span className="text-brand-400">+</span>
+        <h1 className="text-xl font-bold tracking-tight text-ink">
+          Aprova<span className="text-brand-500">+</span>
         </h1>
-        <p className="mt-2 max-w-xl text-sm text-white/60">
-          Resolva questões reais de concurso, veja o gabarito comentado e acompanhe o
-          percentual de acerto da comunidade em cada questão.
+        <p className="mt-1 text-sm text-ink-faint">
+          {totalQuestoes} {totalQuestoes === 1 ? "questão disponível" : "questões disponíveis"}
         </p>
       </div>
-      <div className="flex gap-3 self-start sm:self-auto">
-        <StatPill valor={totalQuestoes} rotulo="questões" />
-      </div>
+      <ThemeToggle tema={tema} onToggle={onToggleTema} />
     </header>
-  );
-}
-
-function StatPill({ valor, rotulo }: { valor: number; rotulo: string }) {
-  return (
-    <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-3 text-center">
-      <div className="text-xl font-bold text-white">{valor}</div>
-      <div className="text-[11px] uppercase tracking-wide text-white/50">{rotulo}</div>
-    </div>
   );
 }
 
 function EstadoVazio() {
   return (
-    <div className="rounded-3xl border border-dashed border-white/15 px-6 py-16 text-center text-white/50">
+    <div className="rounded-xl border border-dashed border-border-subtle px-6 py-16 text-center text-sm text-ink-faint">
       Nenhuma questão encontrada com esses filtros. Tente ajustar os critérios de busca.
     </div>
   );

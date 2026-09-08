@@ -7,10 +7,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <title>Aprova+ | Banco de Questões</title>
+    <script>
+      (function () {
+        try {
+          var tema = localStorage.getItem("aprovamais:tema");
+          if (tema === "light" || tema === "dark") {
+            document.documentElement.dataset.theme = tema;
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

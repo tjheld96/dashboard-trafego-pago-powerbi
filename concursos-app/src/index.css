@@ -1,28 +1,80 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Sora", system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
 
-  --color-brand-50: #f2ecff;
-  --color-brand-100: #e4d9ff;
-  --color-brand-200: #cbb3ff;
-  --color-brand-300: #ac85ff;
-  --color-brand-400: #8f5cff;
-  --color-brand-500: #7c3aed;
-  --color-brand-600: #6b21e0;
-  --color-brand-700: #5817b8;
-  --color-brand-800: #431190;
-  --color-brand-900: #2f0c66;
+  --color-brand-50: #eef1ff;
+  --color-brand-100: #dfe4ff;
+  --color-brand-200: #c0c9fe;
+  --color-brand-300: #96a3fb;
+  --color-brand-400: #6b78f5;
+  --color-brand-500: #4c56e0;
+  --color-brand-600: #3a3fc0;
+  --color-brand-700: #302f9c;
+  --color-brand-800: #29297d;
+  --color-brand-900: #1f1f5e;
 
-  --color-accent-400: #22e0b8;
-  --color-accent-500: #0ec99f;
+  --color-ok-500: #1a8f5a;
+  --color-ok-400: #2fb673;
+  --color-danger-500: #c23d4b;
+  --color-danger-400: #de5a68;
 
-  --color-ok-500: #22c55e;
-  --color-danger-500: #f43f5e;
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-subtle: var(--border-subtle);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-faint: var(--ink-faint);
+  --color-canvas: var(--canvas);
 }
 
+/* Light theme (default) */
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
+  --canvas: #f6f7fb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border-subtle: #e2e4ec;
+  --ink: #14152b;
+  --ink-muted: #565973;
+  --ink-faint: #8b8ea6;
+}
+
+/* System preference, only when the user hasn't made an explicit choice */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --canvas: #0e0f1a;
+    --surface: #16182a;
+    --surface-raised: #1c1e33;
+    --border-subtle: #2a2c45;
+    --ink: #eef0fb;
+    --ink-muted: #a4a7c4;
+    --ink-faint: #6c6f8f;
+  }
+}
+
+/* Explicit user choice always wins */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0e0f1a;
+  --surface: #16182a;
+  --surface-raised: #1c1e33;
+  --border-subtle: #2a2c45;
+  --ink: #eef0fb;
+  --ink-muted: #a4a7c4;
+  --ink-faint: #6c6f8f;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --canvas: #f6f7fb;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border-subtle: #e2e4ec;
+  --ink: #14152b;
+  --ink-muted: #565973;
+  --ink-faint: #8b8ea6;
 }
 
 html,
@@ -33,13 +85,10 @@ body,
 
 body {
   margin: 0;
-  background: #0b0620;
-  background-image:
-    radial-gradient(circle at 15% 0%, rgba(140, 92, 255, 0.35), transparent 45%),
-    radial-gradient(circle at 85% 10%, rgba(14, 201, 159, 0.25), transparent 40%);
-  background-attachment: fixed;
-  color: #f4f2fb;
-  font-family: "Sora", system-ui, "Segoe UI", Roboto, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 * {
@@ -47,7 +96,7 @@ body {
 }
 
 ::selection {
-  background: rgba(140, 92, 255, 0.4);
+  background: rgba(76, 86, 224, 0.25);
 }
 
 ::-webkit-scrollbar {
@@ -57,6 +106,6 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(172, 133, 255, 0.35);
+  background: var(--border-subtle);
   border-radius: 999px;
 }
