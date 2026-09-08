@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Sora", system-ui, "Segoe UI", Roboto, sans-serif;
+
+  --color-brand-50: #f2ecff;
+  --color-brand-100: #e4d9ff;
+  --color-brand-200: #cbb3ff;
+  --color-brand-300: #ac85ff;
+  --color-brand-400: #8f5cff;
+  --color-brand-500: #7c3aed;
+  --color-brand-600: #6b21e0;
+  --color-brand-700: #5817b8;
+  --color-brand-800: #431190;
+  --color-brand-900: #2f0c66;
+
+  --color-accent-400: #22e0b8;
+  --color-accent-500: #0ec99f;
+
+  --color-ok-500: #22c55e;
+  --color-danger-500: #f43f5e;
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #0b0620;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(140, 92, 255, 0.35), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(14, 201, 159, 0.25), transparent 40%);
+  background-attachment: fixed;
+  color: #f4f2fb;
+  font-family: "Sora", system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(140, 92, 255, 0.4);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(172, 133, 255, 0.35);
+  border-radius: 999px;
+}
