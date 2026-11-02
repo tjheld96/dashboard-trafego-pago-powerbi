@@ -13,6 +13,19 @@ export default function App() {
   const { obterProgresso, responder } = useQuestionProgress();
   const { tema, alternar } = useTheme();
 
+  const resumo = useMemo(() => {
+    let acertos = 0;
+    let erros = 0;
+    for (const q of questions) {
+      const p = obterProgresso(q.codigo);
+      if (p?.respondida) {
+        if (p.acertou) acertos++;
+        else erros++;
+      }
+    }
+    return { total: questions.length, acertos, erros, naoRespondidas: questions.length - acertos - erros };
+  }, [obterProgresso]);
+
   const opcoes = useMemo(() => {
     const anos = new Set<number>();
     const bancas = new Set<string>();
@@ -60,7 +73,11 @@ export default function App() {
       <div className="mx-auto max-w-3xl px-4 pb-24 pt-8 sm:px-6">
         <Header totalQuestoes={questions.length} tema={tema} onToggleTema={alternar} />
 
-        <div className="mt-6">
+        <div className="mt-5">
+          <ProgressSummary resumo={resumo} />
+        </div>
+
+        <div className="mt-5">
           <Filters
             filtros={filtros}
             onChange={setFiltros}
@@ -109,6 +126,50 @@ function Header({
       </div>
       <ThemeToggle tema={tema} onToggle={onToggleTema} />
     </header>
+  );
+}
+
+interface Resumo {
+  total: number;
+  acertos: number;
+  erros: number;
+  naoRespondidas: number;
+}
+
+function ProgressSummary({ resumo }: { resumo: Resumo }) {
+  const { total, acertos, erros, naoRespondidas } = resumo;
+  const respondidas = acertos + erros;
+  const pct = (n: number) => (total > 0 ? (n / total) * 100 : 0);
+
+  return (
+    <div className="rounded-xl border border-border-subtle bg-surface p-4">
+      <div className="mb-2 flex items-center justify-between text-xs text-ink-faint">
+        <span>Seu progresso</span>
+        <span>
+          {respondidas} de {total} respondidas
+        </span>
+      </div>
+
+      <div className="flex h-1.5 w-full overflow-hidden rounded-full bg-border-subtle">
+        {acertos > 0 && <div className="h-full bg-ok-500" style={{ width: `${pct(acertos)}%` }} />}
+        {erros > 0 && <div className="h-full bg-danger-500" style={{ width: `${pct(erros)}%` }} />}
+      </div>
+
+      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-sm">
+        <Stat label="Acertos" value={acertos} className="text-ok-500" />
+        <Stat label="Erros" value={erros} className="text-danger-500" />
+        <Stat label="Não respondidas" value={naoRespondidas} className="text-ink-faint" />
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value, className }: { label: string; value: number; className: string }) {
+  return (
+    <div className="flex items-baseline gap-1.5">
+      <span className={`font-semibold ${className}`}>{value}</span>
+      <span className="text-ink-faint">{label}</span>
+    </div>
   );
 }
 
